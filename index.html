@@ -1,55 +1,103 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="icon" href="https://item-shopping.c.yimg.jp/i/n/restt_rogo-00164" sizes="16×16" type="image/png" />   
-   <title>スターコーポレーション公式サイト　製品 | 日常捨てろよ。</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://item-shopping.c.yimg.jp/i/n/restt_rogo-00164" sizes="16×16" type="image/png" />  
+  <title>スターコーポレーション公式製品サイト</title>
+
+  <style>
+
+     /* --- トップへ戻るボタン（光る＋フェードイン＋浮遊） --- */
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 52px;
+    height: 52px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    display: none;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.3s ease, box-shadow 0.4s ease;
+    z-index: 999;
+
+    /* ★ 浮遊アニメーションを追加 */
+    animation: floatUpDown 3.2s ease-in-out infinite;
+}
+
+/* ホバー時：光るグロー */
+#backToTop:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-6px);
+    box-shadow: 0 0 12px #81d5ff, 0 0 25px rgba(129,213,255,0.6);
+}
+
+/* フェードイン（スクロールで出現） */
+#backToTop.show {
+    display: block;
+    opacity: 1;
+}
+
+/* ★ たゆっと上下に揺れるアニメーション */
+@keyframes floatUpDown {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-7px); }
+    100% { transform: translateY(0); }
+}
 
 
-   <style>
-       *, *::before, *::after {
-           margin: 0;
-           padding: 0;
-           box-sizing: border-box;
-       }
-       body {
-           font-family: "Noto Sans JP", sans-serif;
-           background: #FFFFFF;
-           color: #000000;
-           line-height: 1.6;
-       }
-       a { color: ##F51800; text-decoration: none; }
+    /* Reset */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: #fff;
+      color: #000;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-       header {
-           padding: 20px 40px;
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           border-bottom: 1px solid rgba(255,255,255,0.1);
-       }
-       header h1 {
-           font-size: 1.4rem;
-           letter-spacing: 2px;
-           display: flex;
-           align-items: center;
-           gap: 12px;
-       }
-       header h1 img {
-           height: 40px;
-       }
-       nav a {
-           margin-left: 20px;
-           font-size: 0.9rem;
-           opacity: 0.8;
-       }
-       nav a:hover {
-           opacity: 1;
-       }
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
 
+    header h1 {
+      font-size: 2.4rem;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
 
-       .hero {
+    header p {
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h2.section-title {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+
+     .hero {
            height: 80vh;
            background: url("") center/cover no-repeat;
            display: flex;
@@ -57,17 +105,7 @@
            justify-content: center;
            text-align: center;
            padding: 30px;
-       }
-       .hero h2 {
-           font-size: 2.4rem;
-           margin-bottom: 10px;
-           text-shadow: 0px 0px 12px rgba(255,255,255,0.6);
-       }
-       .hero p {
-           opacity: 0.8;
-           font-size: 1.2rem;
-       }
-
+       }  
 
        section {
            padding: 80px 40px;
@@ -96,9 +134,20 @@
        .product:hover {
            background: rgba(255,255,255,0.12);
        }
-       .product img {
-           width: 100%;
+       .product img 
+       .service img { 
+           width: 70%;
            border-radius: 10px;
+           }
+
+       .product img,
+       .service img {
+           width: 50%;
+           display: block;
+           margin: 0 auto;
+       }
+
+           
        }
        .product h4 {
            margin: 15px 0 10px;
@@ -116,199 +165,462 @@
            line-height: 1.8;
        }
 
-
-       footer {
-           padding: 30px;
-           text-align: center;
-           font-size: 0.85rem;
-           color: rgba(255,255,255,0.5);
-           border-top: 1px solid rgba(255,255,255,0.1);
-           margin-top: 60px;
-       }
-
-
-       /* レスポンシブ対応 */
-  @media (min-width: 768px) {
-    .ad-section {
-      flex-direction: row;
-      text-align: left;
-      padding: 60px;
+    /* Image unified size → same as 永眠くん */
+    .product img, .service img, .fixed-size-img {
+      width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px auto;
+      border-radius: 12px;
+      transition: transform 0.4s ease;
     }
 
-    .ad-section div {
-      flex: 1;
-      margin: 0 20px;
+    /* Hover zoom */
+    .product img:hover,
+    .service img:hover {
+      transform: scale(1.05);
     }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 1s ease;
+    }
+
+     
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+#btn18 span:nth-of-type(1) {
+  -webkit-animation: btn18-bar01 .5s forwards;
+  animation: btn18-bar01 .5s forwards;
+}
+@-webkit-keyframes btn18-bar01 {
+  0% {
+    -webkit-transform: translateY(20px) rotate(-45deg);
   }
+  100% {
+    -webkit-transform: translateY(0) rotate(0);
+  }
+}
+@keyframes btn18-bar01 {
+  0% {
 
-
-   </style>
+    transform: translateY(20px) rotate(-45deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+}
+#btn18 span:nth-of-type(2) {
+  -webkit-animation: btn18-bar02 .5s forwards;
+  animation: btn18-bar02 .5s forwards;
+}
+@-webkit-keyframes btn18-bar02 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes btn18-bar02 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#btn18 span:nth-of-type(3) {
+  -webkit-animation: btn18-bar03 .5s forwards;
+  animation: btn18-bar03 .5s forwards;
+}
+@-webkit-keyframes btn18-bar03 {
+  0% {
+    -webkit-transform: translateY(-20px) rotate(45deg);
+  }
+  100% {
+    -webkit-transform: translateY(0) rotate(0);
+  }
+}
+@keyframes btn18-bar03 {
+  0% {
+    transform: translateY(-20px) rotate(45deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+}
+#btn18::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  content: '';
+  width: 30px;
+  height: 30px;
+  margin: -16px 0 0 -16px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.3);
+  transition: all .1s;
+  opacity: 0;
+}
+#btn18.active::after {
+  -webkit-animation: circle .5s;
+  animation: circle .5s;
+}
+@-webkit-keyframes circle {
+  0% {
+    -webkit-transform: scale(.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(3.5);
+    opacity: 0;
+  }
+}
+@keyframes circle {
+  0% {
+    transform: scale(.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+#btn18.active span:nth-of-type(1) {
+  -webkit-animation: active-btn18-bar01 .5s .5s forwards;
+  animation: active-btn18-bar01 .5s .5s forwards;
+}
+@-webkit-keyframes active-btn18-bar01 {
+  0% {
+    -webkit-transform: translateY(0) rotate(0);
+  }
+  100% {
+    -webkit-transform: translateY(20px) rotate(-45deg);
+  }
+}
+@keyframes active-btn18-bar01 {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  100% {
+    transform: translateY(20px) rotate(-45deg);
+  }
+}
+#btn18.active span:nth-of-type(2) {
+  -webkit-animation: active-btn18-bar02 .5s .5s forwards;
+  animation: active-btn18-bar02 .5s .5s forwards;
+}
+@-webkit-keyframes active-btn18-bar02 {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes active-btn18-bar02 {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#btn18.active span:nth-of-type(3) {
+  -webkit-animation: active-btn18-bar03 .5s .5s forwards;
+  animation: active-btn18-bar03 .5s .5s forwards;
+}
+@-webkit-keyframes active-btn18-bar03 {
+  0% {
+    -webkit-transform: translateY(0) rotate(0);
+  }
+  100% {
+    -webkit-transform: translateY(-20px) rotate(45deg);
+  }
+}
+@keyframes active-btn18-bar03 {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  100% {
+    transform: translateY(-20px) rotate(45deg);
+  }
+}
+  </style>
 </head>
+    
 <body>
+    
 
+   　<!-- 背景オーバーレイ -->
+<div id="menuOverlay" class="menu-overlay"></div>
 
-   <header>
-       <h1>
-           <img src="https://item-shopping.c.yimg.jp/i/n/restt_rogo-00164" alt="ロゴ" height="150">
+    <header>
+        <h1>
+           <img src="https://item-shopping.c.yimg.jp/i/n/restt_rogo-00164" alt="ロゴ" height="50">
            STAR CORPORATION
        </h1>
-       <nav>
-           <a href="#introduce">このページについて</a>
-           <a href="#product-list">製品</a>
-           <a href="#service">サービス</a>
-       </nav>
-   </header>
+    <div class="btn-trigger" id="btn18">
+        <nav>
+           <a href="#about">このページについて</a>
+           <a href="#product">製品</a>
+           <a href="service">サービス</a>
+      <span></span>
+      <span></span>
+      <span></span>
+            </nav>
+    </div>
+  </header>
 
 
-   <div class="hero">
-       <div>
-           <h2>日常捨てろよ。</h2>
-           <p>役に立たないものしか作らない会社、スターコーポレーション。</p>
-       </div>
+
+
+
+    
+  <div class="hero">
+    <div class="fade-in">
+    <h1>スターコーポレーション</h1>        
+    <p>日常捨てろよ。</p>
+    </div>    
+  </div>
+
+  <section id="about">
+    <h2 class="section-title fade-in">このページについて</h2>
+        <p>このページは世の中は便利になりすぎていると感じたNovel Starという人を社長として営業している企業の製品サイトです。<br>
+        ホームページは<a href="https://novelstar354.github.io/starcorperation/">こちら</a>。</p>
+</section>
+
+
+  <section id="product">
+    <h2 class="section-title fade-in">製品</h2>
+
+    <div class="service fade-in">
+      <img src="https://m.media-amazon.com/images/I/814bK7P5DRL._AC_UF350,350_QL50_.jpg" alt="あなたは見てはいけないものを見てしまった。" class="fixed-size-img" />
+      <h4>永眠くん</h4>
+      <p>絶対に起きれない革命的目覚まし時計。人生をスヌーズしろ。</p>
+    </div>
+
+    <div class="service fade-in">
+      <img src="https://www.ayanokouji.co.jp/shop/item/kyoame/picture/goods/10_2.jpg" alt="もし、これを見た場合、お近くのスターコーポレーション情報部門へお越しください。" class="fixed-size-img" />
+      <h4>無味キャンディー</h4>
+      <p>味のないキャンディー。味についての哲学をあなたに。</p>
+    </div>
+
+    <div class="service fade-in">
+      <img src="https://jp.sharp/reizo/sjmf46h-design/images/main-visual_sp.jpg" alt="さもなければ、あなたは永遠に人生をスヌーズすることになるでしょう。" class="fixed-size-img" />
+      <h4>nothing smart 冷蔵庫</h4>
+      <p>たまに温かくなる最新AI搭載。何もしないが、存在感はある。</p>
+    </div>
+
+　　<div class="service fade-in">
+         <img src="https://previews.123rf.com/images/badboo/badboo1104/badboo110400018/9378444-beautiful-view-out-of-a-modern-unfurnished-room.jpg" alt="潮田サイトと娯楽サイトのパスワード「orangeS@0120」">
+         <h4>透明家具シリーズ</h4>
+         <p>見えない、座れない、ぶつかる。あなたの生活に刺激を。</p>
    </div>
 
- <section id="introduce">
-     <h3>このページについて</h3>
-     <p class="about-text">
-         このページは便利すぎると感じた、Novel Starという人を社長としている企業の製品ページです。公式ホームページは<a href="https://novelstar354.github.io/star/">こちら</a>。また、新しい公式ホームページは<a href="https://novelstar354.github.io/starcorperation/">こちら</a>。
-     </p>
- </section>
-
-  <section id="product-list">
-       <h3>製品</h3>
-       <div class="product-list">
-           <img src="https://m.media-amazon.com/images/I/814bK7P5DRL._AC_UF350,350_QL50_.jpg">
-           <h4>永眠くん</h4>
-           <p>絶対に起きれない革命的目覚まし時計。人生をスヌーズしろ。</p> 
-       </div>
-           <div class="product-list">
-               <img src="https://www.ayanokouji.co.jp/shop/item/kyoame/picture/goods/10_2.jpg">
-               <h4>無味キャンディー</h4>
-               <p>味のないキャンディー。味についての哲学をあなたに。</p>
-           <div>
-           <div class="product-list">
-               <img src="https://jp.sharp/reizo/sjmf46h-design/images/main-visual_sp.jpg">
-               <h4>nothing smart 冷蔵庫</h4>
-               <p>たまに温かくなる最新AI搭載。何もしないが、存在感はある。</p>
-           </div>
-           <div class="product-list">
-               <img src="https://previews.123rf.com/images/badboo/badboo1104/badboo110400018/9378444-beautiful-view-out-of-a-modern-unfurnished-room.jpg" alt="">
-               <h4>透明家具シリーズ</h4>
-               <p>見えない、座れない、ぶつかる。あなたの生活に刺激を。</p>
-           </div>
-           <div class="service-list">
-               <img src="https://www.muji.com/public/media/img/item/4550512076162_org.jpg">
-               <h4>縮むラーメン『シュリンク麺』</h4>
-               <p>お湯をかけると縮むラーメン。小腹も満たせない。</p>
-            </div>
-             <div class="service">
+     <div class="service fade-in">
+          <img src="https://www.muji.com/public/media/img/item/4550512076162_org.jpg">
+          <h4>縮むラーメン『シュリンク麺』</h4>
+          <p>お湯をかけると縮むラーメン。小腹も満たせない。</p>
+    </div>  
+    <div class="service fade-in">
         <img src="https://www.hyponex.co.jp/yasai_daijiten/websys/wp-content/uploads/2020/09/%E3%83%AA%E3%83%B3%E3%82%B4A-676x451.jpg">
         <h4>世界で三千番目に硬い林檎：固形林檎</h4>
         <p>粉バナナの対照商品。固形の林檎。</p>
-    </div>    
-            <div class="product-list">
-                <img src="https://www.zojirushi-direct.com/client_info/ZOJIRUSHI_DIRECT/itemimage/EQSB22_BW/EQSB22_BW_01.png" alt="">
-                <h4>焼かないトースター</h4>
-                <p>パンを入れると、ほんのり冷たくなる。
- 「焼かないという新提案」。
-                </p>
-            </div>
-            <div class="service fade-in">
+    </div>  
+      
+
+    <div class="service fade-in">
+        <img src="https://www.zojirushi-direct.com/client_info/ZOJIRUSHI_DIRECT/itemimage/EQSB22_BW/EQSB22_BW_01.png" alt="">
+        <h4>焼かないトースター</h4>
+        <p>パンを入れると、ほんのり冷たくなる。<br>
+        「焼かないという新提案」。</p>
+    <div>
+        <div class="service fade-in">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Yloh2hikqN3LlPX-xgQYTV8LxZBf6PJMAQ&s">
             <h4>しぼみックス</h4>
-            <p>パンが膨らむどころかしぼむパンミックスです。小腹を満たせません。</p>   
-            <div class="product-list">
-                <img src="https://media.loom-app.com/roomie/dist/images/2023/05/3f27f1a3ab6106bda5a279240ec8f54b-1.jpeg?w=585" alt="折りたたみ達人">
-                <h4>折りたたみ達傘</h4>
-                <p>一度閉じると開かないが、傘を閉じる能力だけは完璧。</p>
-            </div>
-            <div class="product-list">
-                <img src="https://cdn-ak.f.st-hatena.com/images/fotolife/o/oji-west/20220124/20220124174953.jpg" alt="永眠君V2">
-                <h4>永眠君V2</h4>
-                <p>初代永眠くんとは違い、ボタンを押しても押してもアラームが止まりません。アラーム地獄へようこそ。</p>
-           </div>
-　          <div class="service">
-        <img src="https://sanyokougyo.co.jp/img/product/gum/main_gum.png" alt="逆テープ">
-       <h4>逆ガムテープ</h4>        
-        <p>貼れば貼るほど破れるガムテープ。使用は他社責任で。</p>
+            <p>パンが膨らむどころかしぼむパンミックスです。小腹を満たせません。</p>
+
+    <div class="service fade-in">
+         <img src="https://media.loom-app.com/roomie/dist/images/2023/05/3f27f1a3ab6106bda5a279240ec8f54b-1.jpeg?w=585" alt="折りたたみ達人">
+         <h4>折りたたみ達傘</h4>
+         <p>一度閉じると開かない傘。傘を閉じる能力だけは完璧。</p> 
     </div>
-         <div class="service">
+
+    <div class="service fade-in">
+         <img src="https://cdn-ak.f.st-hatena.com/images/fotolife/o/oji-west/20220124/20220124174953.jpg" alt="永眠くん">
+         <h4>永眠くんV2</h4>
+         <p>初代永眠くんとは違い、ボタンを押してもアラームが止まりません。アラーム地獄へようこそ。</p>
+    </div>
+
+   
+    <div class="service fade-in">
+        <img src="https://sanyokougyo.co.jp/img/product/gum/main_gum.png" alt="逆テープ">
+        <h4>逆ガムテープ</h4>
+        <p>貼れば貼るほど破れるガムテープ。使用は他社責任で。</p>
+    </div>   
+     <div class="service fade-in">
          <img src="https://img.pikbest.com/wp/202352/classic-white-music-player-turntable-in-a-chic-case-3d-render-on-background_9790795.jpg!f305cw">
         <h4>BACKSONGS PLAYER</h4>
          <p>
         音楽を逆再生する音楽プレーヤーです。サビも盛り上がりも台無しになる設計です。
         </p>
          </div>
-        <div class="service">
+        <div class="service fade-in">
            <img src="https://www.illust-box.jp/db_img/sozai/00012/128230/watermark.jpg">
             <h4>アンチストレス・クラッシャーキューブ</h4>
             <p>壊しても壊しても復活する立方体。壊せば壊すほどストレスが溜まります。</p>
-        </div>
-        <div class="service">
+        </div>  
+      <div class="service fade-in">
             <img src="https://png.pngtree.com/png-vector/20240806/ourlarge/pngtree-energy-drink-can-transparent-background-free-png-image_13393929.png">
             <h4>やらない気ブースタ</h4>
             <p>飲むとやらない気が出るエナジードリンク。「逆に冷静になれる」と好評。</p>
-        </div>   
-
-        <div class="service">
+        </div>      
+     <div class="service fade-in">
          <img src="https://image.itmedia.co.jp/lifestyle/articles/1609/23/ts_delicia02.jpg" alt="nothing smart series">
          <h4>nothing smartシリーズ</h4>
          <p>wi-fiに対応し、スマホで操作できますが、本当に何もしません。nothing smart冷蔵庫もその一つです。他にも、nothing smartライト（光らない）や、nothing smartコンロ（火がつかないが、この製品の上に食べ物を置くと少し冷める）、nothing smartphone（スマホで操作できるが、動かない）などがあります。</p>
     </div>
-     </div>
-               </div>
-   </section>
+    </div>
+ </div>
+</section>
 
+  <section id="service">
+    <h2 class="section-title fade-in">サービス</h2>
 
-　  <section id="service">
-      <h3>サービス情報</h3>
-      <div class="service-list">
-          <div class="service">
-              <img src="https://store-images.s-microsoft.com/image/apps.14785.14423064005243201.42399137-369b-40bb-b5be-ac2f079c41bf.b1d6d110-9d93-441f-ac20-2e04fd7dfe3c" alt="">
-              <h4>最強のチャットAI：ネガポジ無双 通称チャットgtp</h4>
-              <p>ポジティブな言葉を全てネガティブに変換して返すチャットAI<br>
- 例：「今日はいい天気だね」→「そう思い込まないと生きていけないんだね」<br>
-              </p>
-          </div>
-          <div class="service">
-               <h4 classs="about-text">ここには貴社の代表的なサービスを掲示しています。製品・サービスサイトは<a href="https://novelstar354.github.io/product">こちら</a>。</h4>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDomKNQBdl3DOd2AW9KgS4bA__m9uJjljc0Q&s" alt"">
-            <h4>究極のアプリ：空もよう？</h4>
-            <p>ランダムな天気を表示するお天気アプリです。<br>
-            明日の天気は運次第。いや、今日の天気も運次第。<br>
-            <p>
-         </div>
-         <div class="service">
+    <div class="service fade-in">
+      <img src="https://store-images.s-microsoft.com/image/apps.14785.14423064005243201.42399137-369b-40bb-b5be-ac2f079c41bf.b1d6d110-9d93-441f-ac20-2e04fd7dfe3c" alt="サービス1" class="fixed-size-img" />
+      <h4>最強のチャットAI:ネガポジ無双</h4>
+      <p>ポジティブな言葉を全てネガティブに変換して返すチャットAI。<br>
+ 例：「今日はいい天気だね」→「そう思い込まないと生きていけないんだね」</p>
+    </div>
+
+     <div class="service fade-in">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDomKNQBdl3DOd2AW9KgS4bA__m9uJjljc0Q&s" alt"">
+        <h4>究極のアプリ：空もよう？</h4>
+         <p>ランダムな天気を表示するお天気アプリです。<br>明日の天気は運次第。いや、今日の天気も運次第。
+         <p>
+    </div>
+
+      <div class="service fade-in">
              <img src="https://png.pngtree.com/png-clipart/20230916/original/pngtree-google-translate-icon-three-dimensional-vector-png-image_12256679.png">
              <h4>ランダム翻訳</h4>
              <p>日本語を日本語、英語、アラビア語、フランス語、キニアルワンダ語、セーシェル・クレオール語からランダムに翻訳します。使いたい方は<a href="https://novelstar354.github.io/he">こちら</a>。</p>
          </div>   
-           <div class="service">
+           <div class="service fade-in">
              <img src="https://img.lovepik.com/png/20231120/google-translate-translation-icon-vector-artificial-software-deal-with_642881_wh860.png">
              <h4>そのまま翻訳</h4>
              <p>日本語を日本語で返す翻訳機です。世界で1番、日本語の精度が高いです。使いたい方は<a href="https://novelstar354.github.io/she">こちら</a>。</p>
      </div>    
-            <div class="service fade-in">
+        <div class="service fade-in">
+         <img src="https://png.pngtree.com/png-clipart/20230922/original/pngtree-machine-translation-software-gradient-linear-vector-icon-dictionary-talk-multilingual-vector-png-image_12828475.png">
+         <h4>ちゃんとした翻訳</h4>
+         <p>我が社には不必要なちゃんとした翻訳です。使いたい方は<a href="https://novelstar354.github.io/they">こちら</a>。</p>
+     </div>
+       <div class="service fade-in">
+           <img src="https://img2.lancers.jp/proposal/2545174/83951/e689cf8a1ea0ef8e87942817ef50ee10d0e2334834716541acaba5e3ecfff908/3160012_300_0.jpg?20131003053200">
+           <h4>タイピング多分上達Opoタイピング</h4>
+           <p>多分一応使える。使い方は<a href="https://novelstar354.github.io/pop">こちら</a>。</p>
+           </div>
+      <div class="service fade-in">
           <img src="data:image/png;base64,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">
           <h4>気まぐれスケジュールアプリ</h4>
           <p>気まぐれにスケジュールが増減します。</p>
           </div>
-        <div class="service">
-            <img src="https://www.silhouette-illust.com/wp-content/uploads/2017/09/travel_odekake_38105-600x600.jpg" alt="">
-            <h4>最高の旅行代理店：ステイホームツアーズ 通称SHT</h4>
-            <p>あなたに家への旅行を提供いたします。<br>
-            ※予約するとキャンセルされる可能性があります。<br>
-            <p>
-        </div> 
-       </div>
-       
-    </section>
-    
-    
-   <footer>
-       © 2025 STAR CORPORATION - All Rights Reserved.
-   </footer>
-    
+      <div class="service fade-in">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLj1wZ8zW4WNCR42s3H08JmL8waGOY3BpwTg8uBmYMeQ&s=10""">
+          <h4>最強のメモアプリ：改ざんメモ v4</h4>
+          <p>メモ帳として活用できますが、書いた文字が変わったり、消えたりします。</p>
+        </div>
+    <div class="service fade-in">
+      <img src="https://www.silhouette-illust.com/wp-content/uploads/2017/09/travel_odekake_38105-600x600.jpg" alt="">
+     <h4>最高の旅行代理店：ステイホームツアーズ</h4>
+    <p>あなたに家への旅行を提供いたします。<br>  ※予約するとキャンセルされる可能性があります。
+    <p>
+    </div> 
+      
+  </section>
 
+
+
+  <footer class="fade-in">
+    © 2025 Star Corporation. All Rights Reserved.
+  </footer> 
+
+  <script>
+    /* Scroll animation */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+<button id="backToTop">▲</button>
+
+
+<script>
+    const backToTop = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            backToTop.classList.add("show");   // フェードイン
+        } else {
+            backToTop.classList.remove("show"); // フェードアウト
+        }
+    });
+
+    backToTop.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+   (function($) {
+  var $nav   = $('#navArea');
+  var $btn   = $('.toggle_btn');
+  var $mask  = $('#mask');
+  var open   = 'open'; // class
+  // menu open close
+  $btn.on( 'click', function() {
+    if ( ! $nav.hasClass( open ) ) {
+      $nav.addClass( open );
+    } else {
+      $nav.removeClass( open );
+    }
+  });
+  // mask close
+  $mask.on('click', function() {
+    $nav.removeClass( open );
+  });
+} )(jQuery);
+</script>
+
+        
 </body>
 </html>
